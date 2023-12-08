@@ -87,44 +87,6 @@ public class StringConcatToTextBlockFixCore extends CompilationUnitRewriteOperat
 			fAllConcats= allConcats;
 		}
 
-		private boolean isStringType(Type type) {
-			if (type instanceof ArrayType) {
-				return false;
-			}
-			ITypeBinding typeBinding= type.resolveBinding();
-			if (typeBinding == null || !typeBinding.getQualifiedName().equals(JAVA_STRING)) {
-				return false;
-			}
-			return true;
-		}
-
-		@Override
-		public boolean visit(final VariableDeclarationStatement visited) {
-			Type type= visited.getType();
-			if (!isStringType(type)) {
-				return false;
-			}
-			return true;
-		}
-
-		@Override
-		public boolean visit(final FieldDeclaration visited) {
-			Type type= visited.getType();
-			if (!isStringType(type)) {
-				return false;
-			}
-			return true;
-		}
-
-		@Override
-		public boolean visit(final Assignment visited) {
-			ITypeBinding typeBinding= visited.resolveTypeBinding();
-			if (typeBinding == null || !typeBinding.getQualifiedName().equals(JAVA_STRING)) {
-				return false;
-			}
-			return true;
-		}
-
 		@Override
 		public boolean visit(final InfixExpression visited) {
 			if (visited.getOperator() != InfixExpression.Operator.PLUS
@@ -548,8 +510,8 @@ public class StringConcatToTextBlockFixCore extends CompilationUnitRewriteOperat
 			}
 			Statement endStatement= stmtList.get(i - 1);
 			int lastStatementEnd= endStatement.getStartPosition() + endStatement.getLength();
-			IBinding varBinding= originalVarName.resolveBinding();
-			if (varBinding == null) {
+			IBinding varBinding= null;
+			if (originalVarName == null || (varBinding= originalVarName.resolveBinding()) == null) {
 				return false;
 			}
 			CheckValidityVisitor checkValidityVisitor= new CheckValidityVisitor(lastStatementEnd, varBinding);
