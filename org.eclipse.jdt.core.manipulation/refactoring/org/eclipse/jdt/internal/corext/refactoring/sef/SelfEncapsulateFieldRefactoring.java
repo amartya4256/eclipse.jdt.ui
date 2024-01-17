@@ -90,6 +90,9 @@ import org.eclipse.jdt.core.refactoring.descriptors.JavaRefactoringDescriptor;
 import org.eclipse.jdt.core.search.IJavaSearchConstants;
 import org.eclipse.jdt.core.search.SearchPattern;
 
+import org.eclipse.jdt.internal.core.manipulation.BindingLabelProviderCore;
+import org.eclipse.jdt.internal.core.manipulation.JavaElementLabelsCore;
+import org.eclipse.jdt.internal.core.manipulation.JavaManipulationPlugin;
 import org.eclipse.jdt.internal.core.manipulation.StubUtility;
 import org.eclipse.jdt.internal.core.manipulation.util.BasicElementLabels;
 import org.eclipse.jdt.internal.core.refactoring.descriptors.RefactoringSignatureDescriptorFactory;
@@ -117,11 +120,6 @@ import org.eclipse.jdt.internal.corext.util.JavaConventionsUtil;
 import org.eclipse.jdt.internal.corext.util.JavaModelUtil;
 import org.eclipse.jdt.internal.corext.util.JdtFlags;
 import org.eclipse.jdt.internal.corext.util.Messages;
-
-import org.eclipse.jdt.internal.core.manipulation.JavaElementLabelsCore;
-
-import org.eclipse.jdt.internal.core.manipulation.JavaManipulationPlugin;
-import org.eclipse.jdt.internal.core.manipulation.BindingLabelProviderCore;
 
 /**
  * Encapsulates a field into getter and setter calls.
@@ -157,6 +155,8 @@ public class SelfEncapsulateFieldRefactoring extends Refactoring {
 	private List<IMethodBinding> fUsedReadNames;
 	private List<IMethodBinding> fUsedModifyNames;
 	private boolean fConsiderVisibility=true;
+
+	private boolean fSelected;
 
 	private static final String NO_NAME= ""; //$NON-NLS-1$
 
@@ -937,6 +937,14 @@ public class SelfEncapsulateFieldRefactoring extends Refactoring {
 
 	public void setConsiderVisibility(boolean considerVisibility) {
 		fConsiderVisibility= considerVisibility;
+	}
+
+	public boolean isSeletced() {
+		return fSelected;
+	}
+
+	public void setSelected(boolean selected) {
+		fSelected = selected;
 	}
 
 

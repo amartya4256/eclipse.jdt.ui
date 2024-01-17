@@ -788,6 +788,8 @@ public final class RefactoringMessages extends NLS {
 
 	public static String RefactoringStarter_unexpected_exception;
 
+	public static String RefactoringUI_open_unexpected_exception;
+
 	public static String ReferencesInBinaryStatusContextViewer_show_as_search_button;
 
 	public static String ReferencesInBinaryStatusContextViewer_title;
